@@ -5,9 +5,12 @@ pipeline {
         SERVER_IP = credentials('prod-server-ip')
     }
     stages {
-        stage('Setup') {
+        stage('Install Python and pip') {
             steps {
-                sh "pip install -r requirements.txt"
+                sh "sudo apt install python3"
+                sh "sudo apt install python3-pytest -y"
+                sh "sudo apt install python3-pip -y"
+                sh "sudo pip install -r requirements.txt --break-system-packages"
             }
         }
         stage('Test') {
